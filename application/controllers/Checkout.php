@@ -50,7 +50,7 @@ class Checkout extends CI_Controller {
 
 		try{
 
-			
+			echo var_dump($_POST);
 
 
 
