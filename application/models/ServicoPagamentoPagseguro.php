@@ -120,6 +120,7 @@ class ServicoPagamentoPagseguro
                 ],
             ],
         ];
+
         $this->post();
     }
     /**
@@ -177,14 +178,18 @@ class ServicoPagamentoPagseguro
         $url = $this->service.$this->action."?email={$this->email}&token={$this->token}";
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json', 'Accept: application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1'));
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json', 'Accept: application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1',
+        	'Access-Control-Allow-Origin: *'));
         $this->callback = json_decode(curl_exec($ch));
         curl_close($ch);
         if (empty($this->callback)) {
             $url = $this->service.$this->action."?email={$this->email}&token={$this->token}";
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json', 'Accept: application/xml;charset=ISO-8859-1'));
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json', 'Accept: application/xml;charset=ISO-8859-1',
+            	'Access-Control-Allow-Origin: *'));
             $this->callback = simplexml_load_string(curl_exec($ch));
             curl_close($ch);
         }
@@ -199,7 +204,11 @@ class ServicoPagamentoPagseguro
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->params));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json', 'Accept: application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1'));
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, 
+        	array('Content-type: application/json', 
+        		  'Accept: application/vnd.pagseguro.com.br.v3+json;charset=ISO-8859-1',
+        		  'Access-Control-Allow-Origin: *'));
         $this->callback = json_decode(curl_exec($ch));
         curl_close($ch);
     }

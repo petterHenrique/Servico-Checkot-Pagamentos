@@ -7,12 +7,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v3.8.5">
-    <title>Checkout example</title>
+    <meta name="author" content="FastCheckout Upsy Tecnologia">
+    <title>Finalizar Pedido</title>
     <!-- Bootstrap core CSS -->
 	<link href="<?=base_url()?>assets/css/bootstrap.min.css" rel="stylesheet"/>
 	<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+	<link href="<?=base_url()?>assets/css/card.css" rel="stylesheet"/>
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -61,6 +61,33 @@
       .hidden{
       	display:none;
       }
+      .btn-comprar{
+      	background: #71c358;
+	    color: #fff;
+	    font-weight: 500;
+	    border: 0;
+	    padding: 14px 30px;
+	    margin: 0 auto;
+	    border-bottom: 5px solid #50b232;
+	    border-radius: 6px;
+	    font-size: 15px;
+	    width: 100%;
+      }
+      .btn-comprar:hover{
+      	color:#fff;
+      }
+      .compra-segura {
+		    width: 275px;
+		    margin: 0 auto;
+		    margin-top: 6px;
+		    margin-bottom: 6px;
+		}
+
+		.text-compra-segura {
+		    margin-top: 10px;
+		    color: #6f6f6f;
+		    font-size: 11px;
+		}
     </style>
     <!-- Custom styles for this template -->
     <link href="<?=base_url()?>assets/css/form-validation.css" rel="stylesheet"/>
@@ -76,7 +103,7 @@
   <div class="row">
 
   <!--AQUI TOPO INFORMANDO QUAL PRODUTO SE TRATA-->
-  	<div class="col-md-12 order-md-1 mb-3"> 
+  	<div class="col-md-12 mb-3"> 
 	  	<div class="painel">
 	  		<div class="row">
 		  		<div class="col-md-4">
@@ -94,54 +121,23 @@
 	  	</div>
   	</div>
 
-
-    <div class="col-md-6 order-md-2 mb-4">
-      <h4 class="mb-3">Pagamento</h4>
-      <div class="painel">
-      	  <!--FORMA DE PAGAMENTO-->
-	      <div class="row">
-	      	<div class="col-md-12">
-		        <h6 class="font-bold">
-		            PAGAR COM:
-		        </h6>
-		        <p class="marginless">Escolha qual método de pagamento você prefere usar.</p>
-		        <button class="btn btn-default btn-pagamento active" type="button" id="pagarcom-cartao" onclick="mudaFormaPagamento(this); return false;">
-		            <i class="far fa-credit-card"></i>
-		            <span>Cartão de crédito</span>
-		        </button>
-		        <button class="btn btn-default btn-pagamento" type="button" id="pagarcom-boleto" onclick="mudaFormaPagamento(this); return false;">
-		            <i class="fas fa-barcode"></i>
-		            Boleto
-		        </button>                                       
-	      	</div>
-	      </div>
-
-	      <!--ABAS-->
-	      <div class="row" id="dados-cartao">
-Car
-	      </div>
-	      <div class="row hidden" id="dados-boleto">
-Bo
-	      </div>
-      </div>
-    </div>
-    <div class="col-md-6 order-md-1">
+  	<div class="col-md-6">
       <h4 class="mb-3">Dados Cliente</h4>
       <form class="needs-validation" novalidate>
       	<div class="painel">
 	        <div class="row">
 	          <div class="col-md-12 mb-3">
 	            <label for="nomeCliente">Nome</label>
-	            <input type="text" class="form-control" id="nomeCliente" placeholder="Nome completo" value="" required>
+	            <input autofocus="true" type="text" class="form-control" id="nomeCliente" placeholder="Nome completo" tabindex="1">
 	            <div class="invalid-feedback">
 	              Campo nome obrigatório
 	            </div>
 	          </div>
 	          <div class="col-md-12 mb-3">
 	            <label for="emailCliente">E-mail</label>
-	            <input type="text" class="form-control" id="emailCliente" placeholder="E-mail" value="" required>
+	            <input type="text" class="form-control" id="emailCliente" placeholder="E-mail" tabindex="2">
 	            <div class="invalid-feedback">
-	              E-mail obrigatório
+	              E-mail inválido
 	            </div>
 	          </div>
 	        </div>
@@ -149,14 +145,14 @@ Bo
 	        <div class="row">
 	          <div class="col-md-6 mb-3">
 	            <label for="cpfCliente">CPF</label>
-	            <input type="text" class="form-control" id="cpfCliente" placeholder="000.000.000-00" value="" required>
+	            <input type="text" class="form-control" id="cpfCliente" placeholder="000.000.000-00" tabindex="3">
 	            <div class="invalid-feedback">
-	              CPF obrigatório
+	              CPF inválido
 	            </div>
 	          </div>
 	          <div class="col-md-6 mb-3">
 	            <label for="telefoneCliente">Telefone com DDD</label>
-	            <input type="text" class="form-control" id="telefoneCliente" placeholder="(xx) xxxxx-xxxx" value="" required>
+	            <input type="text" class="form-control" id="telefoneCliente" placeholder="(xx) xxxxx-xxxx" tabindex="4">
 	            <div class="invalid-feedback">
 	              Telefone obrigatório
 	            </div>
@@ -169,7 +165,7 @@ Bo
 	        <div class="row">
 	        	<div class="col-md-6 mb-3">
 		            <label for="cepCliente">CEP</label>
-		            <input type="text" class="form-control" id="cepCliente" placeholder="00000-000" value="" required>
+		            <input type="text" class="form-control" id="cepCliente" placeholder="00000-000" tabindex="5">
 		            <div class="invalid-feedback">
 		              Cep obrigatório
 		            </div>
@@ -178,28 +174,28 @@ Bo
 		        </div>
 		        <div class="col-md-12 mb-3">
 		            <label for="ruaCliente">Endereço</label>
-		            <input type="text" class="form-control" id="ruaCliente" placeholder="Endereço" value="" required disabled>
+		            <input type="text" class="form-control" id="ruaCliente" placeholder="Endereço" tabindex="6" disabled>
 		            <div class="invalid-feedback">
-		              Rua obrigatório
+		              Endereço obrigatório
 		            </div>
 		        </div>
 		        <div class="col-md-6 mb-3">
 		            <label for="numeroEnderecoCliente">Número:</label>
-		            <input type="text" class="form-control" id="numeroEnderecoCliente" placeholder="" required disabled>
+		            <input type="text" class="form-control" id="numeroEnderecoCliente" placeholder="" tabindex="7" disabled>
 		            <div class="invalid-feedback">
 		              Número Residência obrigatório
 		            </div>
 		        </div>
 		        <div class="col-md-6 mb-3">
 		            <label for="complementoEnderecoCliente">Complemento</label>
-		            <input type="text" class="form-control" id="complementoEnderecoCliente" placeholder="" value="" disabled>
+		            <input type="text" class="form-control" id="complementoEnderecoCliente" tabindex="8" disabled>
 		            <div class="invalid-feedback">
 		              Complemento obrigatório
 		            </div>
 		        </div>
 		        <div class="col-md-12 mb-3">
 		            <label for="bairroCliente">Bairro</label>
-		            <input type="text" class="form-control" id="bairroCliente" placeholder="" value="" required disabled>
+		            <input type="text" class="form-control" id="bairroCliente" tabindex="9" disabled>
 		            <div class="invalid-feedback">
 		              Bairro obrigatório
 		            </div>
@@ -207,24 +203,127 @@ Bo
 	        
 	          <div class="col-md-6 mb-3">
 	            <label for="cidadeCliente">Cidade</label>
-	            <input type="text" class="form-control" id="cidadeCliente" placeholder="" value="" required disabled>
+	            <input type="text" class="form-control" id="cidadeCliente" tabindex="10" disabled>
 	            <div class="invalid-feedback">
 	              Cidade obrigatório
 	            </div>
 	          </div>
 	          <div class="col-md-6 mb-3">
 	            <label for="estadoCliente">Estado</label>
-	             <input type="text" class="form-control" id="estadoCliente" placeholder="" value="" required disabled>
-		            <div class="invalid-feedback">
-		              Estado obrigatório
-		            </div>
-	            <div class="invalid-feedback">
-	              Please provide a valid state.
-	            </div>
+	            <select class="form-control" id="estadoCliente" disabled="true">
+                    <option value="" selected="selected">--</option>
+                    <option value="AC" >Acre</option>
+					<option value="AL" >Alagoas</option>
+					<option value="AP" >Amapá</option>
+					<option value="AM" >Amazonas</option>
+					<option value="BA" >Bahia</option>
+					<option value="CE" >Ceará</option>
+					<option value="DF" >Distrito Federal</option>
+					<option value="ES" >Espírito Santo</option>
+					<option value="GO" >Goiás</option>
+					<option value="MA" >Maranhão</option>
+					<option value="MT" >Mato Grosso</option>
+					<option value="MS" >Mato Grosso do Sul</option>
+					<option value="MG" >Minas Gerais</option>
+					<option value="PA" >Pará</option>
+					<option value="PB" >Paraíba</option>
+					<option value="PR" >Paraná</option>
+					<option value="PE" >Pernambuco</option>
+					<option value="PI" >Piauí</option>
+					<option value="RJ" >Rio de Janeiro</option>
+					<option value="RN" >Rio Grande do Norte</option>
+					<option value="RS" >Rio Grande do Sul</option>
+					<option value="RO" >Rondônia</option>
+					<option value="RR" >Roraima</option>
+					<option value="SC" >Santa Catarina</option>
+					<option value="SP" >São Paulo</option>
+					<option value="SE" >Sergipe</option>
+					<option value="TO" >Tocantins</option> 
+				</select>
+
+		        <div class="invalid-feedback">
+		            Estado obrigatório
+		        </div>
 	          </div>
 	        </div>
         </div>
     </div>
+    <div class="col-md-6 mb-4">
+      <h4 class="mb-3">Pagamento</h4>
+      <div class="painel">
+      	  <!--FORMA DE PAGAMENTO-->
+	      <div class="row text-center">
+	      	<div class="col-md-12 mb-3">
+		        
+		        <p class="marginless">Escolha qual método de pagamento você prefere usar.</p>
+		        <button class="btn btn-default btn-pagamento active" type="button" id="pagarcom-cartao" onclick="mudaFormaPagamento(this); return false;">
+		            <i class="far fa-credit-card"></i>
+		            <span>Cartão de crédito</span>
+		        </button>
+		        <button class="btn btn-default btn-pagamento" type="button" id="pagarcom-boleto" onclick="mudaFormaPagamento(this); return false;">
+		            <i class="fas fa-barcode"></i>
+		            Boleto
+		        </button>                                       
+	      	</div>
+	      </div>
+
+	        <!--ABAS-->
+	        <div class="row" id="dados-cartao">
+			    <div class="col-md-12">
+			    	<div id="form-cartao-credito">
+			    		<div class="row">
+					      	<div class="col-md-12 mb-3">
+						      	<div class="card-wrapper"></div>
+						    </div>
+					      	<div class="col-md-12 mb-3">
+					            <label for="cc-numero">Número do cartão</label>
+					            <input type="tel" name="number" class="form-control" id="cc-numero" placeholder="Digite somente os números" onselectstart="return false" oncopy="return false" oncut="return false" ondrag="return false" ondrop="return false" autocomplete="off" tabindex="12">
+					            <div class="invalid-feedback">
+					              Campo número cartão obrigatório
+					            </div>
+					        </div>
+					        <div class="col-md-12 mb-3">
+					            <label for="cc-nome">Nome do titular</label>
+					            <input type="tel" name="name" name="number" class="form-control" id="cc-nome" placeholder="Digite somente os números" onselectstart="return false" oncopy="return false" oncut="return false" ondrag="return false" ondrop="return false" autocomplete="off" tabindex="13">
+					            <div class="invalid-feedback">
+					              Campo nome obrigatório
+					            </div>
+					        </div>
+
+					        <!---->
+					        <div class="col-md-6 mb-3">
+					           	<label for="cc-expiracao">Data validade</label>
+					            <input type="tel" name="expiry" class="form-control" id="cc-expiracao" placeholder="Mês / Ano" onselectstart="return false" oncopy="return false" oncut="return false" ondrag="return false" ondrop="return false" autocomplete="off" tabindex="14">
+					            <div class="invalid-feedback">
+					              Campo data validade obrigatório
+					            </div>
+					        </div>
+					     	<div class="col-md-6 mb-3">
+					           	<label for="cc-cvv">Código segurança</label>
+					            <input type="tel" name="cvv" class="form-control" id="cc-cvv" placeholder="CVV" onselectstart="return false" oncopy="return false" oncut="return false" ondrag="return false" ondrop="return false" autocomplete="off" tabindex="15">
+					            <div class="invalid-feedback">
+					              Campo CVV obrigatório
+					            </div>
+					        </div>
+			        		
+			        		<div class="col-md-12 text-center mb-3">
+	                            <button class="btn btn-comprar" id="btn-comprar" type="button">
+	                                Comprar agora
+	                            </button>
+	                           
+	                            <p class="text-compra-segura">Ambiente criptografado e 100% seguro.</p>
+	                            <img src="<?=base_url()?>/assets/img/compra-segura.png" alt="" class="img-fluid compra-segura">
+	                        </div>
+				        </div>
+				    </div>
+			    </div>
+	        </div>
+	        <div class="row hidden" id="dados-boleto">
+			Boleto
+	        </div>
+      </div>
+    </div>
+    
   </div>
   <footer class="text-muted text-center text-small margin-top-20">
     <p class="mb-1">&copy; <?=date("Y")?> FastCheckout - Produto Upsy</p>
@@ -237,10 +336,14 @@ Bo
 </div>
 <script src="<?=base_url()?>assets/js/jquery-3.4.1.min.js"></script>
 <script src="<?=base_url()?>assets/js/bootstrap.bundle.min.js"></script>
+<script src="<?=base_url()?>assets/js/block-ui.js"></script>
+<script src="<?=base_url()?>assets/js/loading.js"></script>
+<script src="<?=base_url()?>assets/js/card.js"></script>
 <script src="<?=base_url()?>assets/js/form-validation.js"></script>
 <script src="<?=base_url()?>assets/js/jquery.mask.min.js"></script>
 <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js">
 </script> 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <script>
 
 $(() => {
@@ -251,6 +354,9 @@ $(() => {
 		viaCep(cep);
 	});
 
+	$("#btn-comprar").on("click", function(){
+		pagamento.finalizarCompra();
+	});
 });
 
 class PagSeguro {
@@ -270,11 +376,11 @@ class PagSeguro {
 		let contexto = this;
 
 		$(document).on("change","#cc-numero", function(){
-			contexto.cardNumber = $(this).val();
+			contexto.cardNumber = $(this).val().replace(" ","").replace(" ","").replace(" ","").replace(" ","");
 			contexto.getBrand();
 		});
 		$(document).on("change","#cc-expiracao", function(){
-			contexto.cardExpire = $(this).val();
+			contexto.cardExpire = $(this).val().replace(" ","").replace(" ","");
 		});
 		$(document).on("change","#cc-cvv", function(){
 			contexto.cvv = $(this).val();
@@ -300,7 +406,11 @@ class PagSeguro {
             	contexto.cardToken = response.card.token;
        		},
         	error: function(response){
-            	console.log(response);
+            	if(response.error){
+            		erroModal(['Dados inválidos','Verifique os dados do cartão novamente!']);
+            		console.log(response);
+            		return false;
+            	}
         	}
     	});
 	}
@@ -316,10 +426,17 @@ class PagSeguro {
 	        	console.log(response);
 
 	            contexto.cardBrand = response.brand.name;
-
+	            if(response){
+	            	$("#cc-numero").removeClass("is-invalid").addClass("is-valid");
+	            }
 	        },
 		    error: function(response) {
-		            console.log(response);
+		    	if(response.error){
+		    		$("#cc-numero").addClass("is-invalid");
+		    		$("#cc-numero").focus();
+		    	}
+		    	console.log("ERRO");
+		        console.log(response);
 		    }
 	    });
 	}
@@ -332,14 +449,15 @@ class PagSeguro {
 
 			tipServicoPagamento: 1,
 			tipPagamento: "ASSINATURA",
-			plan_id: document.querySelector("#planoId").value,
+			plan_id: $("#planoId").val(),
 			card_number: contexto.cardNumber,
 			card_cvv: contexto.cvv,
 			card_expiration_month: contexto.cardExpire.split('/')[0],
 			card_expiration_year: contexto.cardExpire.split('/')[1],
-			card_holder_name: document.querySelector("#cc-nome").value,
+			card_holder_name: $("#cc-nome").val(),
 			card_holder_birth: "",
-			card_holder_phone: ""
+			card_holder_phone: "",
+			token: contexto.cardToken
 		};
 
 		let cliente = {
@@ -369,28 +487,83 @@ class PagSeguro {
 	}
 
 
-
-
 	processarPagamento(){
+
 		this.getCardToken();
 
-		$.ajax({
-			url: "<?=base_url()?>index.php/checkout/processarPagamento",
-			method: "POST",
-			data: { 
-				modelo: montarModeloPagamento()
-			},
-			beforeSend: function(){
+		let contexto = this;
 
-			},
-			error: function(){
+		setTimeout(function(){
 
-			},
-			complete: function(){
+			let modeloEnvio = contexto.montarModeloPagamento();
 
-			}
-		});
+			setTimeout(function(){
+				$.ajax({
+				url: "<?=base_url()?>index.php/checkout/processarPagamento",
+				method: "POST",
+				data: { 
+					modelo: modeloEnvio
+				},
+				beforeSend: function(){
+					loading();
+				},
+				success: function(res){
+					alert("Pagamento processado com sucesso!");
+					console.log(res);
+				},
+				error: function(res){
+					console.log(res);
+					erroModal([res]);
+				},
+				complete: function(){
+					loaded();
+				}
+			});
+			},50);
+
+
+		},100);
+
+		
 	}
+}
+
+class ValidateInput{
+
+	static isEmail(email){
+		let pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		return pattern.test(email);
+	}
+
+	static isCpf(cpf){
+		let pattern = /^([0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}|[0-9]{2}\.?[0-9]{3}\.?[0-9]{3}\/?[0-9]{4}\-?[0-9]{2})$/;
+ 		return pattern.test(cpf);
+	}
+
+	static isCpfValido(strCPF){
+		var Soma;
+		var Resto;
+		var i;
+		Soma = 0;
+		if (strCPF == "00000000000") return false;
+		     
+
+
+		for (i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+		  Resto = (Soma * 10) % 11;
+		   
+		if ((Resto == 10) || (Resto == 11))  Resto = 0;
+		if (Resto != parseInt(strCPF.substring(9, 10)) ) return false;
+		   
+		  Soma = 0;
+		for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+		    Resto = (Soma * 10) % 11;
+		   
+		if ((Resto == 10) || (Resto == 11))  Resto = 0;
+		if (Resto != parseInt(strCPF.substring(10, 11) ) ) return false;
+		return true;
+	}
+
 }
 
 class Pagamentos{
@@ -404,25 +577,328 @@ class Pagamentos{
 
 		this.inicializaMascaras();
 
+		this.inicializaCard();
+
+		this.eventosValidacao();
+
 		if(this.configuracoes.servicosPagamento.includes(EnumServicos.PAGSEGURO)){
 
-
+			this.tipServico = "PAGSEGURO";
 			this.InstanciaPagseguro = new PagSeguro('<?=$sessionIdPagseguro;?>');
+		}else{
+			this.tipServico = "IUGU";
 		}
 
+	}
+
+	inicializaCard(){
+		this.card =  new Card({
+            form: document.querySelector('#form-cartao-credito'),
+            container: '.card-wrapper',
+            placeholders: {
+            	name: "NOME CARTÃO"
+            }
+        });
 	}
 
 	inicializaMascaras(){
 		$("#cepCliente").mask("99999-999");
 		$("#cpfCliente").mask("999.999.999-99");
 		$("#telefoneCliente").mask("(99) 99999-9999");
+
+		$("#cc-cvv").mask("999");
 	}
 
 	getConfiguracoes(){
 		return this.configuracoes;
 	}
 
+	validar(){
+		if(!$("#nomeCliente").val()){
+			$("#nomeCliente").addClass("is-invalid");
+			$("#nomeCliente").focus();
+			return false;
+		}
+
+		if(!$("#emailCliente").val() || !ValidateInput.isEmail($("#emailCliente").val())){
+			$("#emailCliente").addClass("is-invalid");
+			$("#emailCliente").focus();
+			return false;
+		}
+
+		if(!$("#cpfCliente").val() || !ValidateInput.isCpfValido($("#cpfCliente").val().replace(".","").replace(".","").replace(".","").replace("-",""))){
+			$("#cpfCliente").addClass("is-invalid");
+			$("#cpfCliente").focus();
+			return false;
+		}
+
+		if(!$("#telefoneCliente").val()){
+			$("#telefoneCliente").addClass("is-invalid");
+			$("#telefoneCliente").focus();
+			return false;
+		}
+
+		if(!$("#cepCliente").val()){
+			$("#cepCliente").addClass("is-invalid");
+			$("#cepCliente").focus();
+			return false;
+		}
+
+		if(!$("#ruaCliente").val()){
+			$("#ruaCliente").addClass("is-invalid");
+			$("#ruaCliente").focus();
+			return false;
+		}
+
+		if(!$("#numeroEnderecoCliente").val()){
+			$("#numeroEnderecoCliente").addClass("is-invalid");
+			$("#numeroEnderecoCliente").focus();
+			return false;
+		}
+
+		if(!$("#bairroCliente").val()){
+			$("#bairroCliente").addClass("is-invalid");
+			$("#bairroCliente").focus();
+			return false;
+		}
+
+		if(!$("#cidadeCliente").val()){
+			$("#cidadeCliente").addClass("is-invalid");
+			$("#cidadeCliente").focus();
+			return false;
+		}
+
+		if(!$("#estadoCliente").val()){
+			$("#estadoCliente").addClass("is-invalid");
+			$("#estadoCliente").focus();
+			return false;
+		}
+
+		//catao
+		if(!$("#cc-numero").val()){
+			$("#cc-numero").addClass("is-invalid");
+			$("#cc-numero").focus();
+			return false;
+		}
+
+		if(!$("#cc-nome").val()){
+			$("#cc-nome").addClass("is-invalid");
+			$("#cc-nome").focus();
+			return false;
+		}
+
+		if(!$("#cc-expiracao").val()){
+			$("#cc-expiracao").addClass("is-invalid");
+			$("#cc-expiracao").focus();
+			return false;
+		}
+
+		if(!$("#cc-cvv").val()){
+			$("#cc-cvv").addClass("is-invalid");
+			$("#cc-cvv").focus();
+			return false;
+		}
+
+		return true;
+	}
+
+	eventosValidacao(){
+
+		let contexto = this;
+
+		$("#nomeCliente").on("change", function(){
+
+			let el = $(this);
+			if(!el.val()) {
+				el.addClass("is-invalid");
+				el.focus();
+			} else {
+				el.removeClass("is-invalid").addClass("is-valid")
+			}
+
+		});
+
+		$("#emailCliente").on("change", function(){
+
+			let el = $(this);
+			if(!el.val() || ValidateInput.isEmail(el.val()) == false) {
+				el.addClass("is-invalid");
+				el.focus();
+			} else {
+				el.removeClass("is-invalid").addClass("is-valid")
+			}
+
+		});
+
+		$("#cpfCliente").on("change", function(){
+
+			let el = $(this);
+			if(!el.val() || !ValidateInput.isCpfValido(el.val().replace(".","").replace(".","").replace("-","")) || !ValidateInput.isCpf(el.val())) {
+				el.addClass("is-invalid");
+				el.focus();
+			} else {
+				el.removeClass("is-invalid").addClass("is-valid")
+			}
+
+		});
+
+		$("#telefoneCliente").on("change", function(){
+
+			let el = $(this);
+			if(!el.val()) {
+				el.addClass("is-invalid");
+				el.focus();
+			} else {
+				el.removeClass("is-invalid").addClass("is-valid")
+			}
+
+		});
+
+		//validar endereço
+
+		$("#cepCliente").on("change", function(){
+
+			let el = $(this);
+			if(!el.val()) {
+				el.addClass("is-invalid");
+				el.focus();
+			} else {
+				el.removeClass("is-invalid").addClass("is-valid")
+			}
+
+		});
+
+		$("#ruaCliente").on("change", function(){
+
+			let el = $(this);
+			if(!el.val()) {
+				el.addClass("is-invalid");
+				el.focus();
+			} else {
+				el.removeClass("is-invalid").addClass("is-valid")
+			}
+
+		});
+
+		$("#numeroEnderecoCliente").on("change", function(){
+
+			let el = $(this);
+			if(!el.val()) {
+				el.addClass("is-invalid");
+				el.focus();
+			} else {
+				el.removeClass("is-invalid").addClass("is-valid")
+			}
+
+		});
+
+		$("#bairroCliente").on("change", function(){
+
+			let el = $(this);
+			if(!el.val()) {
+				el.addClass("is-invalid");
+				el.focus();
+			} else {
+				el.removeClass("is-invalid").addClass("is-valid")
+			}
+
+		});
+
+		$("#cidadeCliente").on("change", function(){
+
+			let el = $(this);
+			if(!el.val()) {
+				el.addClass("is-invalid");
+				el.focus();
+			} else {
+				el.removeClass("is-invalid").addClass("is-valid")
+			}
+
+		});
+
+		$("#estadoCliente").on("change", function(){
+
+			let el = $(this);
+			if(!el.val()) {
+				el.addClass("is-invalid");
+				el.focus();
+			} else {
+				el.removeClass("is-invalid").addClass("is-valid")
+			}
+
+		});
+
+		//cartao 
+		$("#cc-numero").on("change", function(){
+
+			let el = $(this);
+			if(!el.val()) {
+				el.addClass("is-invalid");
+				el.focus();
+			} else {
+				el.removeClass("is-invalid").addClass("is-valid")
+			}
+
+		});
+
+		$("#cc-nome").on("change", function(){
+
+			let el = $(this);
+			if(!el.val()) {
+				el.addClass("is-invalid");
+				el.focus();
+			} else {
+				el.removeClass("is-invalid").addClass("is-valid")
+			}
+
+		});
+
+		$("#cc-expiracao").on("change", function(){
+
+			let el = $(this);
+			if(!el.val()) {
+				el.addClass("is-invalid");
+				el.focus();
+			} else {
+				el.removeClass("is-invalid").addClass("is-valid")
+			}
+
+		});
+
+		$("#cc-cvv").on("change", function(){
+
+			let el = $(this);
+			if(!el.val()) {
+				el.addClass("is-invalid");
+				el.focus();
+			} else {
+				el.removeClass("is-invalid").addClass("is-valid")
+			}
+
+		});
+	}
+
+	finalizarCompra(){
+
+		if(this.validar()){
+
+
+			switch(this.tipServico){
+				case "PAGSEGURO":
+					this.InstanciaPagseguro.processarPagamento();
+				break;
+				default:
+
+				break;
+			}
+		}
+
+	}
 }
+
+
+
+
 
 const EnumServicos = {
 	PAGSEGURO: 1,
@@ -432,8 +908,6 @@ const EnumServicos = {
 const pagamento = new Pagamentos(<?=json_encode($objetoConfiguracoes);?>);
 
 const viaCep = (cep) => {
-
-	console.log(cep);
 
 	let cepFormatado = cep.replace("-","");
 
@@ -453,9 +927,28 @@ const viaCep = (cep) => {
 
 		if(response.logradouro != ""){
 			$("#numeroEnderecoCliente").focus();
+			$("#bairroCliente, #estadoCliente, #cidadeCliente, #ruaCliente").trigger('change');
 		}
 
 	},'json');
+
+}
+
+const erroModal = (arrMensagens) => {
+
+	let htmlMensagens = 'Ocorreram alguns erros </br>';
+
+	arrMensagens.forEach((x) => {
+		htmlMensagens+=" "+x+" </br>";
+	});
+
+	Swal.fire({
+	  title: 'Oops!',
+	  //text: 'Do you want to continue',
+	  type: 'error',
+	  html: htmlMensagens,
+	  confirmButtonText: 'Ok'
+	})
 
 }
 

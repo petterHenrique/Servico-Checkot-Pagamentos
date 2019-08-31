@@ -50,14 +50,43 @@ class Checkout extends CI_Controller {
 
 		try{
 
-			echo var_dump($_POST);
+			$tipoPagamento = $_POST['modelo']['pagamentoModel']['tipServicoPagamento'];
 
 
+			$response;
+
+			switch ($tipoPagamento) {
+
+				case 1: //PAGSEGURO
+
+					$cliente = $_POST['modelo']['clienteModel'];
+					$endereco = $_POST['modelo']['enderecoModel'];
+					$pagamento = $_POST['modelo']['pagamentoModel'];
+					$plano = "";
+
+					$this->CheckoutPagamentos->Init(1);
+					
+					$response = $this->CheckoutPagamentos->PagamentoPagSeguroAssinaturaCartao($cliente, $endereco, $pagamento, $plano);
+
+					break;
+
+				case 2: //CIELO
+
+					break;
+			}
+
+			$this->output
+				->set_status_header(200)
+				->set_content_type('application/json')
+        		->set_output(json_encode(array(
+        			'sucesso' => true,
+        			'dados' => $response)
+        		));
 
 		} catch (\Exception $e) {
 
 		   $this->output
-        	->set_status_header(200)
+        	->set_status_header(400)
         	->set_content_type('application/json', 'utf-8')
         	->set_output(json_encode($response));
 
